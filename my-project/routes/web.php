@@ -1,14 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::view('/', 'welcome')->name('welcome');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::middleware('auth')->get('/profile', ProfileController::class)->name('profile');
